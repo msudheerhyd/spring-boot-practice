@@ -34,12 +34,13 @@ public class Student {
     private Long studentId;
     private String firstName;
     private String lastName;
-    private String emailId;
 
-    @Column(name = "email_address",
+    @Column(
+            name = "email_address",
             nullable = false
     )
-    private String guardianName;
-    private String guardianEmail;
-    private String guardianMobile;
+    private String emailId;
+
+    @Embedded
+    private Guardian guardian;
 }
