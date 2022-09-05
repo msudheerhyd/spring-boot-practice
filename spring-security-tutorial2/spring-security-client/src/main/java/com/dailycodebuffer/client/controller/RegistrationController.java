@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -65,6 +66,34 @@ public class RegistrationController {
         return url;
     }
 
+    @PostMapping("/savePassword")
+    public String savePassword(@RequestParam("token") String token,
+                               @RequestBody PasswordModel passwordModel) {
+        String result = userService.validatePasswordResetToken(token);
+        if(!result.equalsIgnoreCase("valid")) {
+            return "Invalid Token";
+        }
+        Optional<User> user = userService.getUserByPasswordResetToken(token);
+        if(user.isPresent()) {
+            userService.changePassword(user.get(), passwordModel.getNewPassword());
+            return "Password Reset Successfully";
+        } else {
+            return "Invalid Token";
+        }
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestBody PasswordModel passwordModel) {
+        User user = userService.findUserByEmail(passwordModel.getEmail());
+        if(!userService.checkIfValidPassword(user,passwordModel.getOldPassword())) {
+            return "Invalid Old Password";
+        }
+
+        //Save New Password
+        userService.changePassword(user,passwordModel.getNewPassword());
+        return "Password changed Successfully";
+    }
+
     private String passwordResetTokenMail(User user, String applicationUrl, String token) {
         String url =
                 applicationUrl
@@ -74,6 +103,7 @@ public class RegistrationController {
         //sendVerificationEmail()
         log.info("Click the link to Reset your Password: {}",
                 url);
+        return url;
     }
 
     private void resendVerificationTokenMail(User user, String applicationUrl, VerificationToken verificationToken) {
