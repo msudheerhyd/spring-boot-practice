@@ -25,7 +25,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
         String password = authentication.getCredentials().toString();
         UserDetails user = customeUserDetailsService.loadUserByUsername(username);
         return checkPassword(user,password);
-        return null;
     }
 
     private Authentication checkPassword(UserDetails user, String rawpassword) {

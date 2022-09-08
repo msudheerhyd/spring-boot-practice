@@ -1,7 +1,6 @@
 package com.dailcodebuffer.oauthserver.repository;
 
 import com.dailcodebuffer.oauthserver.entity.User;
-import com.dailycodebuffer.client.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

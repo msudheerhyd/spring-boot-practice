@@ -9,29 +9,35 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dailycodebuffer</groupId>
-	<artifactId>spring-security-tutorial2</artifactId>
+	<artifactId>Oauth-resource-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-security-tutorial2</name>
+	<name>Oauth-resource-server</name>
 	<description>Demo project for Spring Boot</description>
-	<packaging>pom</packaging>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-
-	<modules>
-		<module>spring-security-client</module>
-		<module>Oauth-authorization-server</module>
-		<module>Oauth-resource-server</module>
-	</modules>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
