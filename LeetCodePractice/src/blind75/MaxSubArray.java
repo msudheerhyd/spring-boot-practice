@@ -6,7 +6,10 @@ public class MaxSubArray {
         int sum = 0, maxSum = Integer.MIN_VALUE;
 
         for(int num : nums) {
-            sum = Math.max(sum, 0) + num;
+            if(sum<0) {
+                sum = Math.max(sum, 0) + num;
+            }
+
             maxSum = Math.max(maxSum, sum);
         }
         return maxSum;
