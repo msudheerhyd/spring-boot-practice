@@ -1,6 +1,7 @@
 package com.dailycodework.sbrdemo.service;
 
 import com.dailycodework.sbrdemo.exception.StudentAlreadyExistsException;
+import com.dailycodework.sbrdemo.exception.StudentNotFoundException;
 import com.dailycodework.sbrdemo.model.Student;
 import com.dailycodework.sbrdemo.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +30,19 @@ public class StudentService implements IStudentService{
 
     @Override
     public Student updateStudent(Student student, Long id) {
-        return null;
+        return studentRepository.findById(id).map(st -> {
+            st.setFirstName(student.getFirstName());
+            st.setLastName(student.getLastName());
+            st.setEmail(student.getEmail());
+            st.setDepartment(student.getDepartment());
+            return studentRepository.save(st);
+        }).orElseThrow(() -> new StudentNotFoundException("Sorry, this student could not be found"));
     }
 
     @Override
     public Student getStudentById(Long id) {
-        return null;
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Sorry, no student found with the Id : " +id));
     }
 
     @Override
