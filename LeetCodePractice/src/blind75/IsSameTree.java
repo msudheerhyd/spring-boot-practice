@@ -2,6 +2,16 @@ package blind75;
 
 class TreeNode {
     int val;
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "val=" + val +
+                ", left=" + left +
+                ", right=" + right +
+                '}';
+    }
+
     TreeNode left;
     TreeNode right;
 
